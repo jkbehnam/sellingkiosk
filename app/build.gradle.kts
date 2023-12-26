@@ -85,6 +85,7 @@ dependencies {
 
     implementation ("com.github.bumptech.glide:glide:4.16.0")
 
-
+    implementation ("io.github.inflationx:calligraphy3:3.1.1")
+    implementation ("io.github.inflationx:viewpump:2.0.3")
 
 }

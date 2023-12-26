@@ -20,13 +20,14 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tablayout"
             android:layout_width="match_parent"
-            android:layout_height="90dp"
+            android:layout_height="110dp"
             android:background="#B63E3E"
             app:tabIndicatorAnimationMode="elastic"
             app:tabIndicatorColor="@color/white"
-            app:tabIndicator="@drawable/tabres"
+            app:tabIndicator="@drawable/tabres2"
             app:tabTextColor="@color/white"
             app:tabGravity="center"
+
             app:tabIndicatorFullWidth="true"
             app:tabMode="scrollable"
             app:tabIndicatorGravity="stretch"

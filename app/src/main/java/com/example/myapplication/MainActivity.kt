@@ -1,14 +1,15 @@
 package com.example.myapplication
 
-import androidx.appcompat.app.AppCompatActivity
+import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
-import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.LinearLayout
-import android.widget.TableLayout
+import android.widget.TextView
 import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
     lateinit var tab:TabLayout
     lateinit var ll:LinearLayout
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,9 +18,6 @@ class MainActivity : AppCompatActivity() {
         tab=findViewById(R.id.tablayout)
         ll=findViewById(R.id.lltab)
 
-        tab.addTab(tab.newTab().setCustomView(R.layout.item_tab))
-        tab.addTab(tab.newTab().setCustomView(R.layout.item_tab))
-        tab.addTab(tab.newTab().setCustomView(R.layout.item_tab))
         tab.addTab(tab.newTab().setCustomView(R.layout.item_tab))
         tab.addTab(tab.newTab().setCustomView(R.layout.item_tab))
         tab.addTab(tab.newTab().setCustomView(R.layout.item_tab))
@@ -43,10 +41,22 @@ class MainActivity : AppCompatActivity() {
 
             }
         })
-        // تنظیم عرض لایه برابر با ارتفاع
-      //  val layoutParams = LinearLayout.LayoutParams(1500, 1500)
-      //  ll.layoutParams = layoutParams
 
+        tab.addOnTabSelectedListener(object : OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+             var txt:TextView=  tab.customView!!.findViewById(R.id.textView)
+                txt.setTextColor(Color.GRAY)
+
+                //do stuff here
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {
+                var txt:TextView=  tab.customView!!.findViewById(R.id.textView)
+                txt.setTextColor(Color.WHITE)
+
+            }
+            override fun onTabReselected(tab: TabLayout.Tab) {}
+        })
 
     }
 }
