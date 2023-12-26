@@ -8,9 +8,9 @@
 
     <LinearLayout
         android:id="@+id/lltab"
-        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
 
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,18 +22,38 @@
             android:layout_width="match_parent"
             android:layout_height="110dp"
             android:background="#B63E3E"
+            app:tabGravity="center"
+            app:tabIndicator="@drawable/tabres2"
+            app:tabIndicatorAnimationDuration="700"
             app:tabIndicatorAnimationMode="elastic"
             app:tabIndicatorColor="@color/white"
-            app:tabIndicator="@drawable/tabres2"
-            app:tabTextColor="@color/white"
-            app:tabGravity="center"
-
             app:tabIndicatorFullWidth="true"
-            app:tabMode="scrollable"
             app:tabIndicatorGravity="stretch"
-            ></com.google.android.material.tabs.TabLayout>
+            app:tabMode="scrollable"
+            app:tabTextColor="@color/white"></com.google.android.material.tabs.TabLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/llmain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_marginStart="110dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/main_rclc"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
