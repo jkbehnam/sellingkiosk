@@ -21,20 +21,18 @@
             android:id="@+id/tablayout"
             android:layout_width="match_parent"
             android:layout_height="110dp"
-            android:background="#B63E3E"
+            android:background="@drawable/tabback"
             app:tabGravity="center"
             app:tabIndicator="@drawable/tabres2"
             app:tabIndicatorAnimationDuration="700"
             app:tabIndicatorAnimationMode="elastic"
-            app:tabIndicatorColor="@color/white"
+            app:tabIndicatorColor="#FCFEFB"
             app:tabIndicatorFullWidth="true"
             app:tabIndicatorGravity="stretch"
             app:tabMode="scrollable"
             app:tabTextColor="@color/white"></com.google.android.material.tabs.TabLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -42,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/white"
+        android:background="#FCFEFB"
         android:layout_marginStart="110dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -51,6 +49,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/main_rclc"
+
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>

@@ -53,8 +53,8 @@ class MainActivity : BaseActivity() {
         rcycMain=findViewById(R.id.main_rclc)
 
         val foodList = listOf(
-            FoodMainModel("پیتزا", "pizza", "دوغ، گوجه‌فرنگی، پنیر، زیتون و ...", "۱۰.۹۹ دلار"),
-            FoodMainModel("برگر", "burgure", "گوشت گاو، پنیر، خیارشور، ریحان و ...", "۸.۹۹ دلار"),
+            FoodMainModel(" پیتزا چهارفاصل", "pizza", "دوغ، گوجه‌فرنگی، پنیر، زیتون و ...", "۱۰.۹۹ دلار"),
+            FoodMainModel("برگر گوشت دست ساز", "burgure", "گوشت گاو، پنیر، خیارشور، ریحان و ...", "۸.۹۹ دلار"),
             FoodMainModel("سالاد", "salad", "سبزیجات تازه، خیار، گوجه‌فرنگی، مرغ گریل شده و ...", "۶.۹۹ دلار"),
             FoodMainModel("پاستا", "salad", "ماکارونی، گوشت قرمز، سس گوجه‌فرنگی و ...", "۱۲.۹۹ دلار"),
             FoodMainModel("سوشی", "sandwich", "برنج، ماهی تازه، آووکادو، نوری و ...", "۱۴.۹۹ دلار"),
