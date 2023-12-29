@@ -1,10 +1,9 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    //id("kapt")
-    //kotlin("kapt") version "1.9.22"
     kotlin("kapt") version "1.9.22"
-
+    id ("androidx.navigation.safeargs")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -20,7 +19,6 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -37,11 +35,16 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    dataBinding { enable }
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
+    }
+
 }
 
 dependencies {
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+
+
     val lifecycle_version = "2.6.2"
     val arch_version = "2.2.0"
     val room_version = "2.6.1"
@@ -54,6 +57,7 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
     // ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
@@ -88,4 +92,7 @@ dependencies {
     implementation ("io.github.inflationx:calligraphy3:3.1.1")
     implementation ("io.github.inflationx:viewpump:2.0.3")
 
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.6")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.6")
+    implementation("androidx.navigation:navigation-dynamic-features-fragment:2.7.6")
 }

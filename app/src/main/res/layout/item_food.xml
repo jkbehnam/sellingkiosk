@@ -59,6 +59,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:elevation="10dp"
+            android:transitionName="containerTN"
             android:src="@drawable/sandwich"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

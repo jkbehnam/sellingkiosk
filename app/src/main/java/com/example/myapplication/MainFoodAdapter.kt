@@ -6,17 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.Models.FoodMainModel
+import com.example.myapplication.Models.FoodModel
 
-class MainFoodAdapter(val context:Context,val foodList:List<FoodMainModel>):RecyclerView.Adapter<MainFoodAdapter.ViewHolder>() {
+class MainFoodAdapter(
+    val context: Context,
+    val foodList: List<FoodModel>,
+    val onclickListener: (FoodModel,ImageView) -> Unit
+) : RecyclerView.Adapter<MainFoodAdapter.ViewHolder>() {
     // ViewHolder برای نگه‌داری ویوهای هر آیتم در RecyclerView استفاده می‌شود.
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val itemName: TextView = itemView.findViewById(R.id.food_tv_name)
         val itemIngredients: TextView = itemView.findViewById(R.id.food_tv_ingredients)
         val itemPrice: TextView = itemView.findViewById(R.id.food_tv_price)
         val itemImg: ImageView = itemView.findViewById(R.id.food_iv)
-
+        val itemCardview: CardView = itemView.findViewById(R.id.cardView)
     }
 
     // این متد برای ایجاد ViewHolder جدید بر اساس layout آیتم استفاده می‌شود.
@@ -27,15 +32,19 @@ class MainFoodAdapter(val context:Context,val foodList:List<FoodMainModel>):Recy
 
     // این متد برای اتصال داده‌ها به ViewHolder اجرا می‌شود.
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val foodList = foodList[position]
-        holder.itemName.text = foodList.name
-        holder.itemIngredients.text=foodList.ingredients
-        holder.itemPrice.text=foodList.price
-
-        val imageResId = context.resources.getIdentifier(foodList.imv, "drawable", context.packageName)
-
-        // تنظیم تصویر با استفاده از شناسه منبع
+        val foodItem = foodList[position]
+        holder.itemName.text = foodItem.name
+        holder.itemIngredients.text = foodItem.ingredients
+        holder.itemPrice.text = foodItem.price
+        val imageResId =
+            context.resources.getIdentifier(foodItem.imv, "drawable", context.packageName)
         holder.itemImg.setImageResource(imageResId)
+
+        holder.itemImg.transitionName=foodItem.imv
+        // تنظیم تصویر با استفاده از شناسه منبع
+        holder.itemCardview.setOnClickListener(View.OnClickListener {
+            onclickListener(foodItem,holder.itemImg)
+        })
     }
 
 
