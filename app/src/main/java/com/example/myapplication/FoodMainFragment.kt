@@ -89,7 +89,7 @@ class FoodMainFragment : Fragment() {
             findNavController().navigate(directions,extras)
         }
 
-        val gridLayoutManager= GridLayoutManager(requireContext(),1)
+        val gridLayoutManager= GridLayoutManager(requireContext(),2)
         binding.mainRclc.adapter=foodAdapter
         binding.mainRclc.layoutManager=gridLayoutManager
 

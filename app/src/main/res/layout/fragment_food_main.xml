@@ -20,14 +20,14 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tablayout"
             android:layout_width="match_parent"
-            android:layout_height="130dp"
+            android:layout_height="120dp"
             android:background="@drawable/tabback"
             app:tabGravity="center"
 android:paddingTop="10dp"
-            app:tabIndicator="@drawable/rectangle2"
+            app:tabIndicator="@drawable/rectangle3"
             app:tabIndicatorAnimationDuration="700"
             app:tabIndicatorAnimationMode="elastic"
-            app:tabIndicatorColor="#FCFEFB"
+            app:tabIndicatorColor="#EFEFEF"
             app:tabIndicatorFullWidth="true"
             app:tabIndicatorGravity="stretch"
             app:tabMode="scrollable"
@@ -41,8 +41,8 @@ android:paddingTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="#FCFEFB"
-        android:layout_marginStart="130dp"
+        android:background="#EFEFEF"
+        android:layout_marginStart="120dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,7 +50,8 @@ android:paddingTop="10dp"
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/main_rclc"
-
+android:paddingRight="10dp"
+            android:paddingLeft="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>
