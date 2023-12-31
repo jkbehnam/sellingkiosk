@@ -18,7 +18,7 @@ open class BaseActivity:AppCompatActivity() {
                 .addInterceptor(
                     CalligraphyInterceptor(
                         CalligraphyConfig.Builder()
-                            .setDefaultFontPath("fonts/IRANYekanMedium.ttf")
+                         //   .setDefaultFontPath("fonts/IRANYekanMobileBold.ttf")
                             .setFontAttrId(com.example.myapplication.R.attr.fontPath)
                             .build()
                     )
