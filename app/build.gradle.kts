@@ -71,10 +71,8 @@ dependencies {
     kapt("androidx.lifecycle:lifecycle-compiler:$lifecycle_version")
 
 
-    implementation("androidx.room:room-runtime:$room_version")
-
-    // To use Kotlin annotation processing tool (kapt)
-    kapt("androidx.room:room-compiler:$room_version")
+    implementation ("androidx.room:room-ktx:$room_version")
+    kapt ("androidx.room:room-compiler:$room_version")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0-RC2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0-RC2")
