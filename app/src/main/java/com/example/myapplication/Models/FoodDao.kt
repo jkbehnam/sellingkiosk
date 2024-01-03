@@ -7,6 +7,8 @@ import androidx.room.Query
 public interface FoodDao {
     @Insert
     suspend fun insert(foodModel: FoodModel)
+    @Insert
+    suspend fun insertItems(foodModels: List<FoodModel>)
 
     @Query("SELECT * FROM food_table")
     suspend fun getAllFoods():List<FoodModel>

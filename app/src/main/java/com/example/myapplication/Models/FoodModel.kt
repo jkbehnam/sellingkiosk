@@ -9,7 +9,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class FoodModel(
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    val id: Int =0,
     val catgId:Int,
     val name: String,
     val imv: String,
