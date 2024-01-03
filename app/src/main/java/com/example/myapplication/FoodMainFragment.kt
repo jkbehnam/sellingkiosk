@@ -30,7 +30,7 @@ import kotlinx.coroutines.launch
 class FoodMainFragment : Fragment() {
     lateinit var binding: FragmentFoodMainBinding
     lateinit var foodAdapter: MainFoodAdapter
-
+lateinit var foodDB:FoodDatabase
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -88,8 +88,8 @@ class FoodMainFragment : Fragment() {
             )*/
 
 
-        lifecycleScope.launch(Dispatchers.IO) {
-            val foodDB = FoodDatabase.getInstance(requireContext())
+        lifecycleScope.launch(Dispatchers.Main) {
+             foodDB = FoodDatabase.getInstance(requireContext())
             val foodList = foodDB.foodDao().getAllFoods()
             Log.d("MyDatabaseInitializer", "show ${foodList.size} items.")
 
@@ -102,6 +102,8 @@ class FoodMainFragment : Fragment() {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 var txt: TextView = tab.customView!!.findViewById(R.id.textView)
                 txt.setTextColor(ContextCompat.getColor(context!!, R.color.mainText))
+                lifecycleScope.launch { foodDB.foodDao().insert( FoodModel(catgId = 0, name = " پیتزا چهارفاصل", imv = "pizza", ingredients =  "دوغ، گوجه‌فرنگی، پنیر، زیتون و ...", price =  "۱۰.۹۹ دلار")
+                ) }
 
                 //do stuff here
             }

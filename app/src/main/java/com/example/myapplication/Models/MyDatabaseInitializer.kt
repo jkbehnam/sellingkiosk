@@ -1,6 +1,7 @@
 package com.example.myapplication.Models
 
 import android.app.Application
+import android.content.Context
 import android.util.Log
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
@@ -9,7 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-class MyDatabaseInitializer(private val context: Application) :  RoomDatabase.Callback  () {
+class MyDatabaseInitializer(private val context: Context) :  RoomDatabase.Callback  () {
     override fun onCreate(db: SupportSQLiteDatabase) {
         val dao = FoodDatabase.getInstance(context).foodDao()
         CoroutineScope(Dispatchers.IO).launch {
