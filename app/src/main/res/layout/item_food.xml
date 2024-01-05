@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:paddingBottom="5dp"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingBottom="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -15,9 +15,9 @@
             fontPath="fonts/Pelak-ExtraBold.ttf"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:elevation="10dp"
-            android:layout_marginEnd="5dp"
             android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:elevation="10dp"
             android:gravity="start"
             android:maxLines="2"
             android:text="TextView"
@@ -34,8 +34,8 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:elevation="10dp"
-            android:transitionName="containerTN"
             android:src="@drawable/sandwich"
+            android:transitionName="containerTN"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -52,15 +52,47 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" >
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
+                android:layout_height="match_parent"
                 android:paddingStart="8dp"
+                android:paddingTop="5dp"
                 android:paddingEnd="8dp"
-                android:layout_height="match_parent">
+                android:paddingBottom="5dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:orientation="horizontal">
+                    <ImageButton
+                        android:id="@+id/order_remove"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_remove" />
+
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:gravity="center"
+                        android:autoSizeTextType="uniform"
+                        android:layout_weight="1"
+                        android:text="4" />
+
+                    <ImageButton
+                        android:id="@+id/order_add"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_add" />
+
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/food_tv_price"
@@ -72,35 +104,38 @@
                     android:textColor="#B74141"
                     android:textSize="12sp"
 
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+                    app:layout_constraintBottom_toBottomOf="@+id/item_food_Add"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/imageView3" />
+                    app:layout_constraintTop_toTopOf="@+id/item_food_Add" />
 
                 <TextView
                     android:id="@+id/food_tv_ingredients"
                     fontPath="fonts/Pelak-Regular.ttf"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:elevation="15dp"
-                    android:maxLines="2"
                     android:layout_marginBottom="8dp"
+                    android:elevation="15dp"
+                    android:gravity="start"
+                    android:maxLines="2"
                     android:text="TextView"
                     android:textColor="#798897"
                     android:textSize="10sp"
-android:gravity="start"
-                    app:layout_constraintBottom_toTopOf="@+id/imageView3"
+                    app:layout_constraintBottom_toTopOf="@+id/item_food_Add"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <ImageView
-                    android:id="@+id/imageView3"
+                    android:id="@+id/item_food_Add"
                     android:layout_width="30dp"
-
+android:visibility="invisible"
                     android:layout_height="30dp"
                     android:elevation="10dp"
                     android:src="@drawable/add_circle"
                     android:tint="#B74141"
-                    app:layout_constraintBottom_toBottomOf="parent" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>

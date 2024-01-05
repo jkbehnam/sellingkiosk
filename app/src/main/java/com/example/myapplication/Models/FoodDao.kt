@@ -1,5 +1,7 @@
 package com.example.myapplication.Models
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -11,5 +13,5 @@ public interface FoodDao {
     suspend fun insertItems(foodModels: List<FoodModel>)
 
     @Query("SELECT * FROM food_table")
-    suspend fun getAllFoods():List<FoodModel>
+     fun getAllFoods():LiveData<List<FoodModel>>
 }

@@ -7,13 +7,19 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.Models.FoodModel
+import com.example.myapplication.Models.OrderModel
+import okhttp3.internal.notify
 
 class MainFoodAdapter(
     val context: Context,
-    val foodList: List<FoodModel>,
-    val onclickListener: (FoodModel,ImageView) -> Unit
+    var foodList: List<FoodModel>,
+    val foodCount:MutableMap<Int ,Double> ,
+    val onclickListener: (FoodModel, ImageView) -> Unit,
+    val onaddlickListener: (FoodModel) -> Unit
+
 ) : RecyclerView.Adapter<MainFoodAdapter.ViewHolder>() {
     // ViewHolder برای نگه‌داری ویوهای هر آیتم در RecyclerView استفاده می‌شود.
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -22,6 +28,8 @@ class MainFoodAdapter(
         val itemPrice: TextView = itemView.findViewById(R.id.food_tv_price)
         val itemImg: ImageView = itemView.findViewById(R.id.food_iv)
         val itemCardview: CardView = itemView.findViewById(R.id.cardView)
+        val itemAdd: ImageView = itemView.findViewById(R.id.item_food_Add)
+
     }
 
     // این متد برای ایجاد ViewHolder جدید بر اساس layout آیتم استفاده می‌شود.
@@ -35,18 +43,31 @@ class MainFoodAdapter(
         val foodItem = foodList[position]
         holder.itemName.text = foodItem.name
         holder.itemIngredients.text = foodItem.ingredients
-        holder.itemPrice.text = foodItem.price
+        holder.itemPrice.text = foodItem.price.toString()
         val imageResId =
             context.resources.getIdentifier(foodItem.imv, "drawable", context.packageName)
         holder.itemImg.setImageResource(imageResId)
 
-        holder.itemImg.transitionName=foodItem.imv
+        holder.itemImg.transitionName = foodItem.imv
         // تنظیم تصویر با استفاده از شناسه منبع
         holder.itemCardview.setOnClickListener(View.OnClickListener {
-            onclickListener(foodItem,holder.itemImg)
+            onclickListener(foodItem, holder.itemImg)
         })
+
+        holder.itemAdd.setOnClickListener(View.OnClickListener {
+            onaddlickListener(foodItem)
+        })
+        val count=foodCount.get(foodItem.id)
+        if (count != null) {
+
+        }
+
     }
 
+    fun setData(foodList: List<FoodModel>) {
+        this.foodList = foodList
+        this.notifyDataSetChanged()
+    }
 
     // تعداد کل آیتم‌ها در RecyclerView را بازمی‌گرداند.
     override fun getItemCount(): Int {

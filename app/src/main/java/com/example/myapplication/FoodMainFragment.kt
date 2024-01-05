@@ -3,8 +3,6 @@ package com.example.myapplication
 import android.graphics.Color
 import android.os.Bundle
 import android.transition.TransitionInflater
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,35 +12,43 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.lifecycleScope
+import androidx.core.view.GravityCompat
+import androidx.core.view.doOnPreDraw
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.myapplication.Models.CategoryModel
 import com.example.myapplication.Models.FoodDatabase
 import com.example.myapplication.Models.FoodModel
+import com.example.myapplication.Models.OrderModel
 import com.example.myapplication.databinding.FragmentFoodMainBinding
 import com.google.android.material.tabs.TabLayout
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
+import java.util.concurrent.TimeUnit
 
 class FoodMainFragment : Fragment() {
     lateinit var binding: FragmentFoodMainBinding
     lateinit var foodAdapter: MainFoodAdapter
-lateinit var foodDB:FoodDatabase
+    lateinit var orderAdapter: OrderAdapter
+    lateinit var foodViewModel: FoodViewModel
+    lateinit var foodDB: FoodDatabase
+
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
 
         binding = FragmentFoodMainBinding.inflate(inflater, container, false)
-        /* tab=findViewById(R.id.tablayout)
-         ll=findViewById(R.id.lltab)
-         llmain=findViewById(R.id.llmain)*/
-        val animation =
-            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
-        sharedElementEnterTransition = animation
+
+        foodDB = FoodDatabase.getInstance(requireContext())
+        val fooddao = foodDB.foodDao()
+        val foodRepository = FoodRepository(fooddao)
+        val viewModelFactory = ViewModelFactory(foodRepository)
+        foodViewModel =
+            ViewModelProvider(requireActivity(), viewModelFactory).get(FoodViewModel::class.java)
 
         binding.tablayout.addTab(binding.tablayout.newTab().setCustomView(R.layout.item_tab))
         binding.tablayout.addTab(binding.tablayout.newTab().setCustomView(R.layout.item_tab))
@@ -50,8 +56,6 @@ lateinit var foodDB:FoodDatabase
         binding.tablayout.addTab(binding.tablayout.newTab().setCustomView(R.layout.item_tab))
         binding.tablayout.addTab(binding.tablayout.newTab().setCustomView(R.layout.item_tab))
         binding.tablayout.addTab(binding.tablayout.newTab().setCustomView(R.layout.item_tab))
-
-
 
         binding.lltab.viewTreeObserver.addOnGlobalLayoutListener(object :
             ViewTreeObserver.OnGlobalLayoutListener {
@@ -61,51 +65,36 @@ lateinit var foodDB:FoodDatabase
                 // دریافت عرض LinearLayout
                 val height = binding.lltab.height
                 val width = binding.lltab.width
-                // تنظیم طول LinearLayout برابر با عرض
                 val layoutParams = LinearLayout.LayoutParams(height, height)
                 binding.lltab.layoutParams = layoutParams
                 binding.lltab.rotation = -90F
 
             }
         })
+        // open drawer at start
+        binding.mainLlOrders.setOnClickListener(View.OnClickListener {
+            orderAdapter.setData(foodViewModel.orders.value!!)
+            binding.drawerLayout.openDrawer(GravityCompat.END)
 
-        // postponeEnterTransition()
-        /* binding.mainRclc.doOnPreDraw {
-             startPostponedEnterTransition()
-         }*/
-        /*    val foodList = listOf(
-                FoodModel(0,0," پیتزا چهارفاصل", "pizza", "دوغ، گوجه‌فرنگی، پنیر، زیتون و ...", "۱۰.۹۹ دلار"),
-                FoodModel(1,0,"برگر گوشت دست ساز", "burgure", "گوشت گاو، پنیر، خیارشور، ریحان و ...", "۸.۹۹ دلار"),
-                FoodModel(2,0,"سالاد", "salad", "سبزیجات تازه، خیار، گوجه‌فرنگی، مرغ گریل شده و ...", "۶.۹۹ دلار"),
-                FoodModel(3,0,"پاستا", "salad", "ماکارونی، گوشت قرمز، سس گوجه‌فرنگی و ...", "۱۲.۹۹ دلار"),
-                FoodModel(4,0,"سوشی", "sandwich", "برنج، ماهی تازه، آووکادو، نوری و ...", "۱۴.۹۹ دلار"),
-                FoodModel(5,0,"پیتزا", "pizza", "دوغ، گوجه‌فرنگی، پنیر، زیتون و ...", "۱۰.۹۹ دلار"),
-                FoodModel(6,0,"برگر", "burgure", "گوشت گاو، پنیر، خیارشور، ریحان و ...", "۸.۹۹ دلار"),
-                FoodModel(7,0,"سالاد", "salad", "سبزیجات تازه، خیار، گوجه‌فرنگی، مرغ گریل شده و ...", "۶.۹۹ دلار"),
-                FoodModel(8,0,"پیتزا", "pizza", "دوغ، گوجه‌فرنگی، پنیر، زیتون و ...", "۱۰.۹۹ دلار"),
-                FoodModel(9,0,"برگر", "burgure", "گوشت گاو، پنیر، خیارشور، ریحان و ...", "۸.۹۹ دلار"),
-                FoodModel(10,0,"سالاد", "salad", "سبزیجات تازه، خیار، گوجه‌فرنگی، مرغ گریل شده و ...", "۶.۹۹ دلار"),
-            )*/
+        })
+        createRecyclerview(listOf<FoodModel>())
+        createFactorRecyclerview(listOf<OrderModel>())
+        foodViewModel.foods.observe(requireActivity(), Observer {
 
+            foodAdapter.setData(it)
+        })
 
-        lifecycleScope.launch(Dispatchers.Main) {
-             foodDB = FoodDatabase.getInstance(requireContext())
-            val foodList = foodDB.foodDao().getAllFoods()
-            Log.d("MyDatabaseInitializer", "show ${foodList.size} items.")
+        foodViewModel.orders.observe(requireActivity(), Observer {
 
-            createRecyclerview(foodList)
-        }
+            binding.mainTvOrderCount.text = it.sumOf { it.count }.toString()
+            binding.mainTvOrderPrice.text = it.sumOf { it.final_price }.toString()
 
-
+        })
 
         binding.tablayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 var txt: TextView = tab.customView!!.findViewById(R.id.textView)
                 txt.setTextColor(ContextCompat.getColor(context!!, R.color.mainText))
-                lifecycleScope.launch { foodDB.foodDao().insert( FoodModel(catgId = 0, name = " پیتزا چهارفاصل", imv = "pizza", ingredients =  "دوغ، گوجه‌فرنگی، پنیر، زیتون و ...", price =  "۱۰.۹۹ دلار")
-                ) }
-
-                //do stuff here
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab) {
@@ -117,14 +106,23 @@ lateinit var foodDB:FoodDatabase
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
 
+        val animation =
+            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        sharedElementEnterTransition = animation
+        postponeEnterTransition(5000, TimeUnit.MILLISECONDS)
+        binding.mainRclc.doOnPreDraw {
+            startPostponedEnterTransition()
+        }
         // Inflate the layout for this fragment
         return binding.root
 
     }
 
+
     fun createRecyclerview(foodList: List<FoodModel>): Unit {
+
         foodAdapter =
-            MainFoodAdapter(requireActivity(), foodList) { food: FoodModel, iv: ImageView ->
+            MainFoodAdapter(requireActivity(), foodList,mutableMapOf<Int, Double>(), onclickListener={ food: FoodModel, iv: ImageView ->
 
                 Toast.makeText(requireContext(), (food as FoodModel).name, Toast.LENGTH_SHORT)
                     .show()
@@ -133,12 +131,25 @@ lateinit var foodDB:FoodDatabase
                 val extras = FragmentNavigatorExtras(
                     iv to food.imv!!
                 )
+
                 findNavController().navigate(directions, extras)
-            }
+            }, { food: FoodModel ->
+                foodViewModel.addToOrder(food, CategoryModel(1, "", ""))
+            })
 
         val gridLayoutManager = GridLayoutManager(requireContext(), 2)
         binding.mainRclc.adapter = foodAdapter
         binding.mainRclc.layoutManager = gridLayoutManager
+
+
+    }
+    fun createFactorRecyclerview(orderlist: List<OrderModel>): Unit {
+
+        orderAdapter = OrderAdapter( orderlist)
+
+        val linearLayoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerViewOrderList.adapter = orderAdapter
+        binding.recyclerViewOrderList.layoutManager = linearLayoutManager
 
 
     }

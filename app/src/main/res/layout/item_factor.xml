@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- item_order.xml -->
+<!-- item_order.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="16dp">
+
+    <!-- نام محصول -->
+
+
+    <!-- قیمت محصول -->
+    <TextView
+        android:id="@+id/productPriceTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="۱۰٫۰۰ دلار"
+        android:textSize="16sp" />
+
+    <!-- تعداد -->
+    <TextView
+        android:id="@+id/productQuantityTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="x۲"
+        android:textSize="16sp" />
+
+    <!-- قیمت نهایی -->
+    <TextView
+        android:id="@+id/finalPriceTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="۲۰٫۰۰ دلار"
+        android:textSize="16sp" />
+    <TextView
+        android:id="@+id/productNameTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="نام محصول"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+</LinearLayout>

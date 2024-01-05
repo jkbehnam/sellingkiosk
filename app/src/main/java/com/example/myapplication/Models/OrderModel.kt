@@ -5,14 +5,13 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
-@Entity("food_table")
-@Parcelize
-data class FoodModel(
+data class OrderModel(
     @PrimaryKey(autoGenerate = true)
-    val id: Int =0,
-    val catgId:Int,
-    val name: String,
-    val imv: String,
-    val ingredients: String,
-    val price: Double,
-) : Parcelable
+    val order_id: Int =0,
+    var food_Id:Int,
+    var food_cat:String,
+    var count:Double,
+    val food_name: String,
+    val base_price: Double,
+    var final_price:Double,
+)
