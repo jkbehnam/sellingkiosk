@@ -1,6 +1,5 @@
-package com.example.myapplication
+package com.example.myapplication.presentation.ui
 
-import android.R
 import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

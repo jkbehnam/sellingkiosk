@@ -1,15 +1,12 @@
-package com.example.myapplication.Models
+package com.example.myapplication.data
 
 import android.content.Context
-import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import com.example.myapplication.data.DbModel.FoodModel
 
 @Database(entities = [FoodModel::class], version = 3, exportSchema = false)
 abstract class FoodDatabase : RoomDatabase() {

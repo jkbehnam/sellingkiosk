@@ -1,12 +1,12 @@
-package com.example.myapplication
+package com.example.myapplication.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.Models.FoodModel
-import com.example.myapplication.Models.OrderModel
+import com.example.myapplication.R
+import com.example.myapplication.data.DbModel.OrderModel
 
 class OrderAdapter(private var orderList: List<OrderModel>) : RecyclerView.Adapter<OrderAdapter.OrderViewHolder>() {
 

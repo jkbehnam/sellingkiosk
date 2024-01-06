@@ -1,10 +1,12 @@
-package com.example.myapplication.Models
+package com.example.myapplication.data
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import com.example.myapplication.data.DbModel.FoodModel
+import kotlinx.coroutines.flow.Flow
+
 @Dao
 public interface FoodDao {
     @Insert
@@ -13,5 +15,6 @@ public interface FoodDao {
     suspend fun insertItems(foodModels: List<FoodModel>)
 
     @Query("SELECT * FROM food_table")
-     fun getAllFoods():LiveData<List<FoodModel>>
+     fun getAllFoods(): Flow<List<FoodModel>>
 }
+

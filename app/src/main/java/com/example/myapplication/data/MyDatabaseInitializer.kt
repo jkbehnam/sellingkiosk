@@ -1,10 +1,10 @@
-package com.example.myapplication.Models
+package com.example.myapplication.data
 
-import android.app.Application
 import android.content.Context
 import android.util.Log
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.example.myapplication.data.DbModel.FoodModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

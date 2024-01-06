@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.presentation.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,16 +7,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.Models.FoodModel
-import com.example.myapplication.Models.OrderModel
-import okhttp3.internal.notify
+import com.example.myapplication.R
+import com.example.myapplication.data.DbModel.FoodModel
 
 class MainFoodAdapter(
     val context: Context,
     var foodList: List<FoodModel>,
-    val foodCount:MutableMap<Int ,Double> ,
+    val foodCount:MutableMap<Int ,Double>,
     val onclickListener: (FoodModel, ImageView) -> Unit,
     val onaddlickListener: (FoodModel) -> Unit
 
