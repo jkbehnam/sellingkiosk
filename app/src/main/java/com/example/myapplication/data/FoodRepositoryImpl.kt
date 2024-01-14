@@ -1,15 +1,12 @@
 package com.example.myapplication.data
 
 import com.example.myapplication.data.DbModel.FoodModel
-import com.example.myapplication.domain.FoodRepository1
+import com.example.myapplication.domain.FooodRepositpry
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class FoodRepositoryImpl(val foodDao: FoodDao):FoodRepository1 {
-    override suspend fun getFoods(): Flow<List<FoodModel>> {
-        return getFoodFromDB()
-    }
-
-    suspend fun getFoodFromDB(): Flow<List<FoodModel>> {
-       return foodDao.getAllFoods()
+class FoodRepositoryImpl @Inject constructor(val foodDao: FoodDao):FooodRepositpry {
+    override  fun getAllFoods(): Flow<List<FoodModel>> {
+      return  foodDao.getAllFoods()
     }
 }

@@ -24,8 +24,8 @@ class FoodViewModel(val foodRepository: FoodRepository) : ViewModel() {
     private val _selectedCategory = MutableStateFlow<CategoryModel?>(null)
     val selectedCategory: StateFlow<CategoryModel?> = _selectedCategory
 
-    private val _orders = MutableStateFlow<List<OrderModel>>(emptyList())
-    val orders: StateFlow<List<OrderModel>> = _orders
+    private val _orders = MutableLiveData<List<OrderModel>>(emptyList())
+    val orders: LiveData<List<OrderModel>> = _orders
 
     /*private val _foods = MutableStateFlow<List<FoodModel>>(emptyList())
     val foods: StateFlow<List<FoodModel>> = _foods*/
@@ -41,35 +41,38 @@ class FoodViewModel(val foodRepository: FoodRepository) : ViewModel() {
     }
 
     // افزودن یک مورد به لیست سفارشات
-    fun addToOrder(food: FoodModel, categoryModel: CategoryModel) {
-        viewModelScope.launch {
-            val existingOrder = _orders.value.find { it.food_Id == food.id }
+    fun addToOrder(food:FoodModel,categoryModel: CategoryModel){
+        val existingOrder = _orders.value?.find { it.food_Id == food.id }
 
-            if (existingOrder != null) {
-                existingOrder.count += 1.0
-                existingOrder.final_price = existingOrder.base_price * existingOrder.count
-                _orders.emit(_orders.value.toMutableList())
-            } else {
-                val newOrder = OrderModel(
-                    food_Id = food.id,
-                    food_cat = categoryModel.name,
-                    count = 1.0,
-                    food_name = food.name,
-                    base_price = food.price,
-                    final_price = food.price
-                )
-                val currentOrders = _orders.value.toMutableList()
-                currentOrders.add(newOrder)
-                _orders.emit(currentOrders)
-            }
-        }
-    }
+        if (existingOrder != null) {
+            // اگر وجود داشته باشد، تعداد را افزایش دهید
+            existingOrder.count += 1.0
+            existingOrder.final_price= existingOrder.base_price* existingOrder.count
+            _orders.value= _orders.value
+        } else {
+            // اگر وجود نداشته باشد، یک OrderModel جدید ایجاد کنید و به لیست اضافه کنید
+            val newOrder = OrderModel(
+                food_Id = food.id,
+                food_cat = categoryModel.name, // یا هر مقداری که مرتبط با دسته بندی غذا است
+                count = 1.0,
+                food_name = food.name,
+                base_price = food.price,
+                final_price = food.price
+            )
+            val currentOrders = _orders.value.orEmpty().toMutableList()
+            currentOrders.add(newOrder)
+            _orders.value = currentOrders
+        }}
+
+
+    /*    private val _food = MutableLiveData<List<FoodModel>>()
+        val food: LiveData<List<FoodModel>> = _food*/
+    val foods = foodRepository.foods
+}
 
 
     // انتخاب یک دسته بندی
-    fun selectCategory(category: CategoryModel) {
-        _selectedCategory.value = category
-    }
+
 
     // بارگذاری دسته بندی‌ها از ریپازیتوری
 /*
@@ -88,4 +91,4 @@ class FoodViewModel(val foodRepository: FoodRepository) : ViewModel() {
 */
 
     // دیگر قسمت‌های کلاس...
-}
+

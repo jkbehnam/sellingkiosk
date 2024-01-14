@@ -61,7 +61,8 @@ class FoodMainFragment : Fragment() {
         val foodDao = foodDB.foodDao()
         val foodRepository = FoodRepository(foodDao)
         val viewModelFactory = ViewModelFactory(foodRepository)
-        foodViewModel = ViewModelProvider(requireActivity(), viewModelFactory).get(FoodViewModel::class.java)
+        foodViewModel =
+            ViewModelProvider(requireActivity(), viewModelFactory).get(FoodViewModel::class.java)
     }
 
     private fun initUI() {
@@ -75,7 +76,8 @@ class FoodMainFragment : Fragment() {
             binding.tablayout.addTab(binding.tablayout.newTab().setCustomView(R.layout.item_tab))
         }
 
-        binding.lltab.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+        binding.lltab.viewTreeObserver.addOnGlobalLayoutListener(object :
+            ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 binding.lltab.viewTreeObserver.removeOnGlobalLayoutListener(this)
                 val height = binding.lltab.height
@@ -99,7 +101,7 @@ class FoodMainFragment : Fragment() {
             }
         )
 
-        val gridLayoutManager = GridLayoutManager(requireContext(), 2)
+        val gridLayoutManager = GridLayoutManager(requireContext(), 1)
         binding.mainRclc.adapter = foodAdapter
         binding.mainRclc.layoutManager = gridLayoutManager
 
@@ -110,7 +112,8 @@ class FoodMainFragment : Fragment() {
     }
 
     private fun initTransitionAnimation() {
-        val animation = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        val animation =
+            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         sharedElementEnterTransition = animation
         postponeEnterTransition(5000, TimeUnit.MILLISECONDS)
         binding.mainRclc.doOnPreDraw {
@@ -135,32 +138,31 @@ class FoodMainFragment : Fragment() {
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
     }
- /*   private fun initObservers() {
-        foodViewModel.foods.observe(viewLifecycleOwner, Observer {
-            foodAdapter.setData(it)
-        })
 
-        foodViewModel.orders.observe(viewLifecycleOwner, Observer {
+    /*   private fun initObservers() {
+           foodViewModel.foods.observe(viewLifecycleOwner, Observer {
+               foodAdapter.setData(it)
+           })
+
+           foodViewModel.orders.observe(viewLifecycleOwner, Observer {
+               updateOrdersUI(it)
+           })
+       }*/
+    private fun initObservers() {
+        /*  foodViewModel.foods.observe(viewLifecycleOwner, Observer {
+              foodAdapter.setData(it)
+          })*/
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            foodViewModel.foods2.collect { foods ->
+                foodAdapter.setData(foods)
+            }
+
+        }
+
+        foodViewModel.orders.observe(requireActivity(), Observer {
             updateOrdersUI(it)
         })
-    }*/
-    private  fun initObservers() {
-      /*  foodViewModel.foods.observe(viewLifecycleOwner, Observer {
-            foodAdapter.setData(it)
-        })*/
-
-     viewLifecycleOwner.lifecycleScope.launch {
-         foodViewModel.foods2.collect { foods ->
-             foodAdapter.setData(foods)
-         }
-
-     }
-     viewLifecycleOwner.lifecycleScope.launch {
-         foodViewModel.orders.collect { it ->
-             updateOrdersUI(it)
-         }
-
-     }
 
 
     }
