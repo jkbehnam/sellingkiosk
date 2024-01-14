@@ -2,21 +2,17 @@ package com.example.myapplication.presentation.ui
 
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import androidx.lifecycle.lifecycleScope
 import com.example.myapplication.R
 import com.example.myapplication.data.DbModel.FoodModel
-import com.example.myapplication.domain.FooodRepositpry
+import com.example.myapplication.domain.FoodRepositpry
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import javax.inject.Inject
 
 
 class MainActivity2 : BaseActivity() {
-    var fooodRepositpry: FooodRepositpry? = null
+    var foodRepositpry: FoodRepositpry? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
@@ -26,7 +22,7 @@ class MainActivity2 : BaseActivity() {
 //            .build()
 //        appComponent.inject(this)
 
-        val x: Flow<List<FoodModel>>? = fooodRepositpry?.getAllFoods()
+        val x: Flow<List<FoodModel>>? = foodRepositpry?.getAllFoods()
         if (x != null) {
             runBlocking(Dispatchers.IO) {
                 Log.i("beeehnnnamm", x.first().toString())

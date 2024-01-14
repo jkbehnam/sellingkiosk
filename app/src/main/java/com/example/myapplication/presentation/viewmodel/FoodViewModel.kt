@@ -3,21 +3,14 @@ package com.example.myapplication.presentation.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.myapplication.domain.FoodRepository
 import com.example.myapplication.data.DbModel.CategoryModel
 import com.example.myapplication.data.DbModel.FoodModel
 import com.example.myapplication.data.DbModel.OrderModel
-import androidx.lifecycle.viewModelScope
-import com.example.myapplication.domain.FooodRepositpry
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
+import com.example.myapplication.domain.FoodRepositpry
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 
-class FoodViewModel(val foodRepository: FooodRepositpry) : ViewModel() {
+class FoodViewModel(val foodRepository: FoodRepositpry) : ViewModel() {
 
     private val _category = MutableStateFlow<List<CategoryModel>>(emptyList())
     val category: StateFlow<List<CategoryModel>> = _category
@@ -40,13 +33,20 @@ class FoodViewModel(val foodRepository: FooodRepositpry) : ViewModel() {
     }
 
     // افزودن یک مورد به لیست سفارشات
-    fun addToOrder(food:FoodModel,categoryModel: CategoryModel){
+    fun addToOrder(food:FoodModel,categoryModel: CategoryModel,plus:Int){
         val existingOrder = _orders.value?.find { it.food_Id == food.id }
 
         if (existingOrder != null) {
             // اگر وجود داشته باشد، تعداد را افزایش دهید
-            existingOrder.count += 1.0
+            existingOrder.count += plus
+
             existingOrder.final_price= existingOrder.base_price* existingOrder.count
+            if (existingOrder.count==0.0){
+                val currentOrders = _orders.value.orEmpty().toMutableList()
+                currentOrders.removeAll{ it.food_Id == existingOrder.food_Id }
+                _orders.value= currentOrders
+                return
+            }
             _orders.value= _orders.value
         } else {
             // اگر وجود نداشته باشد، یک OrderModel جدید ایجاد کنید و به لیست اضافه کنید
@@ -66,7 +66,7 @@ class FoodViewModel(val foodRepository: FooodRepositpry) : ViewModel() {
 
     /*    private val _food = MutableLiveData<List<FoodModel>>()
         val food: LiveData<List<FoodModel>> = _food*/
-    val foods = foodRepository.getAllFoods()
+   val foods = foodRepository.getAllFoods()
 }
 
 

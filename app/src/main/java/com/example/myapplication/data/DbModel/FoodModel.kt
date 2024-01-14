@@ -15,5 +15,6 @@ data class FoodModel(
     val imv: String,
     val ingredients: String,
     val price: Double,
-    val desc:String
+    val desc:String,
+    val time:Int=0
 ) : Parcelable

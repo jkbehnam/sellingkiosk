@@ -2,10 +2,9 @@ package com.example.myapplication.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.myapplication.domain.FoodRepository
-import com.example.myapplication.domain.FooodRepositpry
+import com.example.myapplication.domain.FoodRepositpry
 
-class ViewModelFactory(val repository:FooodRepositpry):ViewModelProvider.Factory {
+class ViewModelFactory(val repository:FoodRepositpry):ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(FoodViewModel::class.java))
             return FoodViewModel(repository) as T

@@ -1,22 +1,26 @@
 package com.example.myapplication.presentation.adapter
 
 import android.content.Context
+import android.opengl.Visibility
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.data.DbModel.FoodModel
+import com.example.myapplication.data.DbModel.OrderModel
 
 class MainFoodAdapter(
     val context: Context,
     var foodList: List<FoodModel>,
-    val foodCount:MutableMap<Int ,Double>,
+    var foodOrder: List<OrderModel>,
     val onclickListener: (FoodModel, ImageView) -> Unit,
-    val onaddlickListener: (FoodModel) -> Unit
+    val onaddlickListener: (FoodModel,Int) -> Unit
 
 ) : RecyclerView.Adapter<MainFoodAdapter.ViewHolder>() {
     // ViewHolder برای نگه‌داری ویوهای هر آیتم در RecyclerView استفاده می‌شود.
@@ -27,6 +31,11 @@ class MainFoodAdapter(
         val itemImg: ImageView = itemView.findViewById(R.id.food_iv)
         val itemCardview: CardView = itemView.findViewById(R.id.cardView)
         val itemAdd: ImageView = itemView.findViewById(R.id.item_food_Add)
+        val itemCountLL: LinearLayout = itemView.findViewById(R.id.food_count_ll)
+        val itemCountivplus: ImageButton = itemView.findViewById(R.id.order_add)
+        val itemCountivneg: ImageButton = itemView.findViewById(R.id.order_remove)
+        val itemCounttv: TextView = itemView.findViewById(R.id.order_count)
+
 
     }
 
@@ -53,13 +62,36 @@ class MainFoodAdapter(
         })
 
         holder.itemAdd.setOnClickListener(View.OnClickListener {
-            onaddlickListener(foodItem)
+            onaddlickListener(foodItem,1)
         })
-        val count=foodCount.get(foodItem.id)
-        if (count != null) {
+        holder.itemCountivplus.setOnClickListener(View.OnClickListener {
+            onaddlickListener(foodItem,1)
+        })
+
+        holder.itemCountivneg.setOnClickListener(View.OnClickListener {
+            onaddlickListener(foodItem,-1)
+
+        })
+        val foundOrder: OrderModel? = foodOrder.find { it.food_Id == foodItem.id }
+
+        if (foundOrder != null) {
+            holder.itemCountLL.visibility = View.VISIBLE
+            holder.itemAdd.visibility = View.INVISIBLE
+            holder.itemCounttv.text=foundOrder.count.toString()
+            //  holder.itemImg
+        } else {
+            holder.itemAdd.visibility = View.VISIBLE
+            holder.itemCountLL.visibility = View.INVISIBLE
+            if (foundOrder != null) {
+                holder.itemCounttv.text= foundOrder.count.toString()
+            }
 
         }
+    }
 
+    fun setOrderd(foodOrder: List<OrderModel>) {
+        this.foodOrder = foodOrder
+        this.notifyDataSetChanged()
     }
 
     fun setData(foodList: List<FoodModel>) {

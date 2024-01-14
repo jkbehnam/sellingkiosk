@@ -6,10 +6,9 @@ import com.example.myapplication.data.FoodDao
 import com.example.myapplication.data.FoodDatabase
 import com.example.myapplication.data.FoodRepositoryImpl
 import com.example.myapplication.data.MyDatabaseInitializer
-import com.example.myapplication.domain.FooodRepositpry
+import com.example.myapplication.domain.FoodRepositpry
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
 
 
 @Module
@@ -27,7 +26,7 @@ class RoomModule(private val context: Context) {
     }
 
     @Provides
-    fun provideRepository(foodDao: FoodDao): FooodRepositpry {
+    fun provideRepository(foodDao: FoodDao): FoodRepositpry {
         return FoodRepositoryImpl(foodDao)
     }
 }
