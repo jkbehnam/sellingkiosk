@@ -2,6 +2,7 @@ package com.example.myapplication.presentation.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import io.github.inflationx.calligraphy3.CalligraphyConfig
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor
@@ -24,6 +25,8 @@ open class BaseActivity:AppCompatActivity() {
                 )
                 .build()
         )
+
+
     }
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase!!))
