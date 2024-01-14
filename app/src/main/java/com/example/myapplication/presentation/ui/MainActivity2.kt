@@ -7,8 +7,6 @@ import androidx.lifecycle.lifecycleScope
 import com.example.myapplication.R
 import com.example.myapplication.data.DbModel.FoodModel
 import com.example.myapplication.domain.FooodRepositpry
-import com.example.myapplication.presentation.di.AppComponent
-import com.example.myapplication.presentation.di.DaggerAppComponent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -19,15 +17,14 @@ import javax.inject.Inject
 
 class MainActivity2 : BaseActivity() {
     var fooodRepositpry: FooodRepositpry? = null
-        @Inject set
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
 
-        val appComponent: AppComponent
-        appComponent = DaggerAppComponent.builder()
-            .build()
-        appComponent.inject(this)
+//        val appComponent: AppComponent
+//        appComponent = DaggerAppComponent.builder()
+//            .build()
+//        appComponent.inject(this)
 
         val x: Flow<List<FoodModel>>? = fooodRepositpry?.getAllFoods()
         if (x != null) {

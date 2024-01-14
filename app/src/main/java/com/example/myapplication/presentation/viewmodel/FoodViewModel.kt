@@ -8,6 +8,7 @@ import com.example.myapplication.data.DbModel.CategoryModel
 import com.example.myapplication.data.DbModel.FoodModel
 import com.example.myapplication.data.DbModel.OrderModel
 import androidx.lifecycle.viewModelScope
+import com.example.myapplication.domain.FooodRepositpry
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,7 +17,7 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class FoodViewModel(val foodRepository: FoodRepository) : ViewModel() {
+class FoodViewModel(val foodRepository: FooodRepositpry) : ViewModel() {
 
     private val _category = MutableStateFlow<List<CategoryModel>>(emptyList())
     val category: StateFlow<List<CategoryModel>> = _category
@@ -29,8 +30,6 @@ class FoodViewModel(val foodRepository: FoodRepository) : ViewModel() {
 
     /*private val _foods = MutableStateFlow<List<FoodModel>>(emptyList())
     val foods: StateFlow<List<FoodModel>> = _foods*/
-
-    val foods2=foodRepository.foods
     init {
       /*  viewModelScope.launch { //this: CoroutineScope
             foodRepository.foods.flowOn(Dispatchers.IO).collect { foods: List<FoodModel> ->
@@ -67,7 +66,7 @@ class FoodViewModel(val foodRepository: FoodRepository) : ViewModel() {
 
     /*    private val _food = MutableLiveData<List<FoodModel>>()
         val food: LiveData<List<FoodModel>> = _food*/
-    val foods = foodRepository.foods
+    val foods = foodRepository.getAllFoods()
 }
 
 

@@ -77,9 +77,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0-RC2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0-RC2")
 
-    implementation("com.google.dagger:dagger-android:$dagger_version")
-    implementation("com.google.dagger:dagger-android-support:$dagger_version") // if you use the support libraries
-    kapt("com.google.dagger:dagger-android-processor:$dagger_version")
+    implementation ("com.google.dagger:dagger:$dagger_version")
     kapt ("com.google.dagger:dagger-compiler:$dagger_version")
 
     implementation ("com.squareup.retrofit2:retrofit:$retrofit_version")
