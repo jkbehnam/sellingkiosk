@@ -21,15 +21,11 @@ class FoodViewModel(val foodRepository: FoodRepositpry) : ViewModel() {
     private val _orders = MutableLiveData<List<OrderModel>>(emptyList())
     val orders: LiveData<List<OrderModel>> = _orders
 
-    /*private val _foods = MutableStateFlow<List<FoodModel>>(emptyList())
-    val foods: StateFlow<List<FoodModel>> = _foods*/
-    init {
-      /*  viewModelScope.launch { //this: CoroutineScope
-            foodRepository.foods.flowOn(Dispatchers.IO).collect { foods: List<FoodModel> ->
-                _foods.update { foods  }
+    val _ldtest = MutableLiveData<Int>(0)
+    val ldtest: LiveData<Int> = _ldtest
 
-        }*/
-
+    fun incrementCounter(){
+        _ldtest.value= _ldtest.value?.plus(1)
     }
 
     // افزودن یک مورد به لیست سفارشات
@@ -63,31 +59,6 @@ class FoodViewModel(val foodRepository: FoodRepositpry) : ViewModel() {
             _orders.value = currentOrders
         }}
 
-
-    /*    private val _food = MutableLiveData<List<FoodModel>>()
-        val food: LiveData<List<FoodModel>> = _food*/
    val foods = foodRepository.getAllFoods()
 }
-
-
-    // انتخاب یک دسته بندی
-
-
-    // بارگذاری دسته بندی‌ها از ریپازیتوری
-/*
-    fun loadCategories() {
-        viewModelScope.launch {
-            _category.emit(foodRepository.getCategories())
-        }
-    }
-
-    // بارگذاری لیست سفارشات از ریپازیتوری
-    fun loadOrders() {
-        viewModelScope.launch {
-            _orders.emit(foodRepository.getOrders())
-        }
-    }
-*/
-
-    // دیگر قسمت‌های کلاس...
 

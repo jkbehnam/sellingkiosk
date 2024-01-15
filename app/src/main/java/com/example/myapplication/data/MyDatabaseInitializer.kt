@@ -21,9 +21,7 @@ class MyDatabaseInitializer(private val context: Context) :  RoomDatabase.Callba
                 FoodModel(catgId = 2, name = "پیتزا زنجبیلی", imv = "pizza_ginger", ingredients = "سس زنجبیلی، مرغ، قارچ، پنیر موتزارلا و ...", price = 360.0, time = 10, desc = ""),
                 FoodModel(catgId = 2, name = "پیتزا مزه‌دار", imv = "pizza_tasty", ingredients = "سس مخلوط، مرغ، قارچ، کلم پورتوگالی و ...", price = 370.0, time = 10, desc = ""),
                 FoodModel(catgId = 2, name = "پیتزا سبزیجات", imv = "pizza_vegetarian", ingredients = "سس گوجه‌فرنگی، پنیر، فلفل دلمه، زیتون، قارچ و ...", price = 320.0, time = 10, desc = ""),
-                FoodModel(catgId = 2, name = "پیتزا آلفردو", imv = "pizza_alfredo", ingredients = "سس آلفردو، مرغ، قارچ، پنیر پارمزان و ...", price = 400.0, time = 10, desc = "")
-
-                    ,
+                FoodModel(catgId = 2, name = "پیتزا آلفردو", imv = "pizza_alfredo", ingredients = "سس آلفردو، مرغ، قارچ، پنیر پارمزان و ...", price = 400.0, time = 10, desc = ""),
                 FoodModel(catgId = 0, name = "برگر گوشت دست ساز",imv = "burgure",ingredients = "گوشت گاو، پنیر، خیارشور، ریحان و ...", price =400.0, time = 10, desc = ""),
                 FoodModel(catgId = 0, name = "سالاد", imv ="salad", ingredients ="سبزیجات تازه، خیار، گوجه‌فرنگی، مرغ گریل شده و ...", price =223.0, time = 10, desc = ""),
                 FoodModel(catgId = 0, name = "سوشی", imv ="sandwich",ingredients = "برنج، ماهی تازه، آووکادو، نوری و ...",price = 600.0, time = 10, desc = ""),
