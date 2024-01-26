@@ -48,6 +48,13 @@ class FoodMainFragment : Fragment() {
     lateinit var selectedTab: CategoryModel
     lateinit var catList: MutableList<CategoryModel>
     val orderList= listOf<OrderModel>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setRetainInstance(true);
+
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
@@ -66,7 +73,7 @@ class FoodMainFragment : Fragment() {
     private fun initViewModel() {
         val viewModelFactory = ViewModelFactory(foodRepositpry)
         foodViewModel =
-            ViewModelProvider(requireActivity(), viewModelFactory).get(FoodViewModel::class.java)
+            ViewModelProvider(this, viewModelFactory).get(FoodViewModel::class.java)
     }
 
     private fun initUI() {
@@ -131,7 +138,7 @@ class FoodMainFragment : Fragment() {
             }
         )
 
-        val gridLayoutManager = GridLayoutManager(requireContext(), 1)
+        val gridLayoutManager = GridLayoutManager(requireContext(), 2)
         binding.mainRclc.adapter = foodAdapter
         binding.mainRclc.layoutManager = gridLayoutManager
 
@@ -171,16 +178,6 @@ class FoodMainFragment : Fragment() {
         })
         binding.tablayout.getTabAt(2)?.select()
     }
-
-    /*   private fun initObservers() {
-           foodViewModel.foods.observe(viewLifecycleOwner, Observer {
-               foodAdapter.setData(it)
-           })
-
-           foodViewModel.orders.observe(viewLifecycleOwner, Observer {
-               updateOrdersUI(it)
-           })
-       }*/
     private fun initObservers() {
 
         viewLifecycleOwner.lifecycleScope.launch {

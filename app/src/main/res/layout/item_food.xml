@@ -14,15 +14,16 @@
             android:id="@+id/food_tv_name"
             fontPath="fonts/Pelak-ExtraBold.ttf"
             android:layout_width="0dp"
+            android:includeFontPadding="true"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:elevation="10dp"
             android:gravity="start"
             android:maxLines="2"
             android:text="TextView"
             android:textColor="#444444"
-            android:textSize="16sp"
+            android:autoSizeTextType="uniform"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/food_iv"
             app:layout_constraintStart_toStartOf="@+id/cardView"
@@ -42,13 +43,12 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="10dp"
+            android:layout_height="160dp"
+            android:layout_marginTop="20dp"
+            app:cardUseCompatPadding="true"
             app:cardBackgroundColor="#ffffff"
             app:cardCornerRadius="15dp"
-            app:cardElevation="2dp"
+            app:cardElevation="1dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -57,9 +57,9 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingStart="8dp"
+                android:paddingStart="10dp"
                 android:paddingTop="5dp"
-                android:paddingEnd="8dp"
+                android:paddingEnd="10dp"
                 android:paddingBottom="5dp">
 
                 <LinearLayout
@@ -73,8 +73,8 @@
 
                     <ImageButton
                         android:id="@+id/order_remove"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:tint="#B74141"
                         android:background="@android:color/transparent"
                         android:layout_weight="1"
@@ -83,8 +83,8 @@
 
                     <TextView
                         android:id="@+id/order_count"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_weight="1"
                         android:autoSizeTextType="uniform"
                         android:gravity="center"
@@ -92,8 +92,8 @@
 
                     <ImageButton
                         android:id="@+id/order_add"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:tint="#B74141"
                         android:background="@android:color/transparent"
                         android:layout_weight="1"
@@ -120,10 +120,12 @@
                     fontPath="fonts/Pelak-Regular.ttf"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="0dp"
                     android:elevation="15dp"
+
                     android:gravity="start"
                     android:maxLines="2"
+android:lines="2"
                     android:text="TextView"
                     android:textColor="#798897"
                     android:textSize="10sp"
