@@ -38,7 +38,7 @@ class FoodDetailsFragment : Fragment() {
             TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         sharedElementEnterTransition = animation
         postponeEnterTransition(0, TimeUnit.MILLISECONDS)
-        // Inflate the layout for this fragment
+
         return binding.root
     }
 }

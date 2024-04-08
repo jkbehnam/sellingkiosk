@@ -46,8 +46,8 @@ class FoodMainFragment : Fragment() {
     private lateinit var orderAdapter: OrderAdapter
     private lateinit var foodViewModel: FoodViewModel
     lateinit var selectedTab: CategoryModel
-    lateinit var catList: MutableList<CategoryModel>
-    val orderList= listOf<OrderModel>()
+    lateinit var catgList: MutableList<CategoryModel>
+    val orderList = listOf<OrderModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,34 +83,22 @@ class FoodMainFragment : Fragment() {
     }
 
     private fun initTabLayout() {
-        catList = mutableListOf<CategoryModel>()
-        catList.add(CategoryModel(1, "پر طرفدارها", R.drawable.bestseller))
-        catList.add(CategoryModel(2, "پیتزا", R.drawable.pizza))
-        catList.add(CategoryModel(3, "ساندویچ", R.drawable.sandwich))
-        catList.add(CategoryModel(4, "پیش غذا", R.drawable.salad))
-        catList.add(CategoryModel(5, "نوشیدنی", R.drawable.soda))
+        catgList = mutableListOf<CategoryModel>()
+        catgList.add(CategoryModel(1, "پر طرفدارها", R.drawable.bestseller))
+        catgList.add(CategoryModel(2, "پیتزا", R.drawable.pizza))
+        catgList.add(CategoryModel(3, "ساندویچ", R.drawable.sandwich))
+        catgList.add(CategoryModel(4, "پیش غذا", R.drawable.salad))
+        catgList.add(CategoryModel(5, "نوشیدنی", R.drawable.soda))
 
-        catList.reverse()
+        catgList.reverse()
 
-        for (cat in catList) {
+        for (catg in catgList) {
 
             var tab = binding.tablayout.newTab().setCustomView(R.layout.item_tab)
-            tab.customView?.findViewById<TextView>(R.id.tab_tv)?.setText(cat.name)
-            tab.customView?.findViewById<ImageView>(R.id.tab_iv)?.setImageResource(cat.img)
+            tab.customView?.findViewById<TextView>(R.id.tab_tv)?.setText(catg.name)
+            tab.customView?.findViewById<ImageView>(R.id.tab_iv)?.setImageResource(catg.img)
             binding.tablayout.addTab(tab)
 
-
-            /* val tab = binding.tablayout.newTab()
-             val customView = LayoutInflater.from(requireContext()).inflate(R.layout.item_tab, null)
-
-             // Set text and image for each tab
-             val tabTitle = customView.findViewById<TextView>(R.id.tab_tv)
-             val tabIcon = customView.findViewById<ImageView>(R.id.tab_iv)
-
-             tabTitle.text = "Tab $i"
-             tabIcon.setImageResource(R.drawable.salad)  // Define a function to get the appropriate icon resource
-             tab.setCustomView(customView)
-             binding.tablayout.addTab(tab)*/
         }
 
         binding.lltab.viewTreeObserver.addOnGlobalLayoutListener(object :
@@ -129,12 +117,12 @@ class FoodMainFragment : Fragment() {
         foodAdapter = MainFoodAdapter(
             requireActivity(),
             mutableListOf(),
-            orderList ,
+            orderList,
             onclickListener = { food, iv ->
                 onFoodItemClick(food, iv)
             },
-            onaddlickListener = { food,plus ->
-                foodViewModel.addToOrder(food, selectedTab,plus)
+            onaddlickListener = { food, plus ->
+                foodViewModel.addToOrder(food, selectedTab, plus)
             }
         )
 
@@ -166,10 +154,8 @@ class FoodMainFragment : Fragment() {
         binding.tablayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 updateTabTextColor(tab, R.color.mainText)
-                selectedTab=catList.get( binding.tablayout.selectedTabPosition)
-
+                selectedTab = catgList.get(binding.tablayout.selectedTabPosition)
             }
-
             override fun onTabUnselected(tab: TabLayout.Tab) {
                 updateTabTextColor(tab, android.R.color.white)
             }
@@ -178,6 +164,7 @@ class FoodMainFragment : Fragment() {
         })
         binding.tablayout.getTabAt(2)?.select()
     }
+
     private fun initObservers() {
 
         viewLifecycleOwner.lifecycleScope.launch {
@@ -216,7 +203,8 @@ class FoodMainFragment : Fragment() {
 
     private fun updateOrdersUI(orders: List<OrderModel>) {
         foodAdapter.setOrderd(orders)
-        binding.mainTvOrderCount.text = orders.sumOf { it.count }.toString()
+        binding.mainTvOrderCount.text =
+            MainActivity2.removedecimal(orders.sumOf { it.count }.toString())
         binding.mainTvOrderPrice.text = orders.sumOf { it.final_price }.toString()
     }
 }

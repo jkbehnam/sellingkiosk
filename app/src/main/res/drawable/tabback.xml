@@ -4,7 +4,6 @@
     <item>
 
         <bitmap
-
             android:tileMode="repeat"
             android:src="@drawable/hh" />
 

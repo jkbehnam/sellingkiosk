@@ -26,9 +26,9 @@ class OrderAdapter(private var orderList: List<OrderModel>) : RecyclerView.Adapt
         val currentOrder = orderList[position]
 
         holder.productNameTextView.text = currentOrder.food_name
-        holder.productPriceTextView.text = currentOrder.base_price.toString() + " دلار"
+        holder.productPriceTextView.text = currentOrder.base_price.toString() + " تومان"
         holder.productQuantityTextView.text = "x${currentOrder.count.toInt()}"
-        holder.finalPriceTextView.text = "قیمت نهایی: ${currentOrder.final_price} دلار"
+        holder.finalPriceTextView.text = "قیمت نهایی: ${currentOrder.final_price} تومان"
     }
 
     override fun getItemCount(): Int {
